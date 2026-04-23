@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   build_runner: ^2.13.1
+  fl_chart: ^1.2.0
   flutter:
     sdk: flutter
   flutter_riverpod: ^3.3.1

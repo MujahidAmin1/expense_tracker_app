@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:expense_tracker_app/utils/app_colors.dart';
 
 class UserProfileCard extends StatelessWidget {
   final String name;
@@ -15,36 +16,37 @@ class UserProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.categoryBorder),
       ),
       child: Row(
         children: [
           Stack(
             children: [
               CircleAvatar(
-                radius: 30,
+                radius: 28,
                 backgroundImage: NetworkImage(imageUrl),
+                backgroundColor: AppColors.symbolGrey,
               ),
               Positioned(
                 bottom: 0,
                 right: 0,
                 child: Container(
-                  width: 16,
-                  height: 16,
+                  width: 14,
+                  height: 14,
                   decoration: BoxDecoration(
-                    color: Colors.green,
+                    color: const Color(0xFF43A047),
                     shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white, width: 2),
+                    border: Border.all(color: AppColors.white, width: 2),
                   ),
                 ),
               ),
             ],
           ),
-          const SizedBox(width: 16),
+          const SizedBox(width: 14),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,15 +56,17 @@ class UserProfileCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
+                    color: AppColors.darkText,
                   ),
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 2),
                 Text(
                   membershipType,
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.blue[700],
-                    fontWeight: FontWeight.w600,
+                  style: const TextStyle(
+                    fontSize: 11,
+                    color: AppColors.primaryBlue,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 0.5,
                   ),
                 ),
               ],
@@ -70,7 +74,8 @@ class UserProfileCard extends StatelessWidget {
           ),
           const Icon(
             Icons.chevron_right,
-            color: Colors.grey,
+            color: AppColors.textGrey,
+            size: 24,
           ),
         ],
       ),
