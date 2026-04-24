@@ -39,7 +39,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryBlue),
       ),
-      home: LivenessCheckView(),
+      home: BtmNavbar(),
     );
   }
 }
