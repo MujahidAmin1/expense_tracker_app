@@ -302,26 +302,6 @@ class _AllocationScreenState extends ConsumerState<AllocationScreen> {
                     return;
                   }
 
-                  final service = ref.read(budgetServiceProvider);
-                  final totalIncome = service.getTotalIncome();
-
-                  if (totalIncome <= 0) {
-                    _showSnackBar('No income recorded yet. Add income first.');
-                    return;
-                  }
-
-                  final alreadyAllocated = service.getTotalAllocatedExcluding(
-                    _selectedCategory,
-                  );
-                  final available = totalIncome - alreadyAllocated;
-
-                  if (amount > available) {
-                    _showSnackBar(
-                      'Exceeds income limit. You can allocate up to ${AppFormatter.currency(available)}',
-                    );
-                    return;
-                  }
-
                   final budget = Budget(
                     category: _selectedCategory,
                     limit: amount,

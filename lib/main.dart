@@ -1,6 +1,7 @@
 import 'package:expense_tracker_app/features/btm_navbar/btm_navbar.dart';
 import 'package:expense_tracker_app/features/budgets/service/budget_service.dart';
 import 'package:expense_tracker_app/features/transaction/service/transaction_service.dart';
+import 'package:expense_tracker_app/features/liveness check/liveness_check_view.dart';
 import 'package:expense_tracker_app/hive_registrar.g.dart';
 import 'package:expense_tracker_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primaryBlue),
       ),
-      home: BtmNavbar(),
+      home: LivenessCheckView(),
     );
   }
 }
