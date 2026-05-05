@@ -48,15 +48,7 @@ Sovereign Ledger is architected to feel native on every screen:
 ## Screenshots
 
 <p align="center">
-  <img src="https://via.placeholder.com/800x450?text=Sovereign+Ledger+Desktop+Dashboard" width="80%" alt="Desktop Dashboard" />
-  <br>
-  <em>Main Portfolio Dashboard on Desktop</em>
-</p>
-
-<p align="center">
-  <img src="https://via.placeholder.com/250x500?text=Mobile+Insights" width="28%" alt="Mobile Insights" />
-  <img src="https://via.placeholder.com/250x500?text=Mobile+Budgets" width="28%" alt="Mobile Budgets" />
-  <img src="https://via.placeholder.com/250x500?text=Liveness+Check" width="28%" alt="Liveness Check" />
+  <img width="895" height="509" alt="Group 1" src="https://github.com/user-attachments/assets/b3262c14-f888-470c-8798-a843e7834f2b" />
   <br>
   <em>Mobile Experience: Insights, Budgets, and Biometric Security</em>
 </p>
@@ -66,9 +58,11 @@ Sovereign Ledger is architected to feel native on every screen:
 ## Video Demonstration
 
 Check out the full walkthrough of the Sovereign Ledger experience:
-
-[Watch the Video Demo](https://your-cloud-drive-link.com)
-
+<p align="center">
+[Watch the Video Demo]([https://your-cloud-drive-link.com](https://drive.google.com/file/d/1jw2kMu5O1KPCcS09yxLnxBjuf5OHvays/view?usp=drive_link))
+ <br>
+  <em>Mobile Experience: Insights, Budgets, and Biometric Security</em>
+</p>
 ---
 
 ## Getting Started
@@ -109,8 +103,8 @@ Check out the full walkthrough of the Sovereign Ledger experience:
 
 | Type | Link |
 | :--- | :--- |
-| **Live URL** | [https://sovereign-ledger.web.app](https://your-live-url.com) |
-| **Appetize.io** | [View Mobile Demo](https://appetize.io/app/your-app-id) |
+| **Live URL** | [Live Url](https://your-live-url.com) |
+| **Appetize.io** | [https://appetize.io/app/b_rsgfo6c4wrjhatlrjxtmbfj27i]|
 | **Cloud Drive** | [Download APK/Assets](https://your-cloud-drive-link.com) |
 
 ---
