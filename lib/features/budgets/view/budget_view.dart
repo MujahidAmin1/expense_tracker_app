@@ -5,7 +5,6 @@ import 'package:expense_tracker_app/features/budgets/widgets/category_budget_til
 import 'package:expense_tracker_app/features/budgets/widgets/monthly_burn_card.dart';
 import 'package:expense_tracker_app/features/budgets/widgets/spending_velocity_chart.dart';
 import 'package:expense_tracker_app/utils/app_colors.dart';
-import 'package:expense_tracker_app/utils/thousands_formatter.dart';
 import 'package:expense_tracker_app/utils/screen_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:expense_tracker_app/utils/animated_item.dart';
