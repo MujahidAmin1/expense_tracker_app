@@ -31,7 +31,7 @@ jobs:
 
       - name: Build Web
         run: |
-          flutter build web --release --base-href "/expense_tracker_app/" --web-renderer canvaskit
+          flutter build web --release --base-href "/expense_tracker_app/"
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
