@@ -25,8 +25,16 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
+  inno_bundle: ^0.11.2
 
 flutter:
   uses-material-design: true
   assets:
     - assets/svgs/
+
+inno_bundle:
+  id: "a5482c10-489a-11f1-8e3b-5936e57371fb" # <-- Paste your generated ID here
+  publisher: "Mujahid's"  # Optional, but recommended
+  app_name: "Expense Tracker App"
+  languages:
+    - english
