@@ -58,11 +58,8 @@ Sovereign Ledger is architected to feel native on every screen:
 ## Video Demonstration
 
 Check out the full walkthrough of the Sovereign Ledger experience:
-<p align="center">
-[Watch the Video Demo]([https://your-cloud-drive-link.com](https://drive.google.com/file/d/1jw2kMu5O1KPCcS09yxLnxBjuf5OHvays/view?usp=drive_link))
- <br>
-  <em>Mobile Experience: Insights, Budgets, and Biometric Security</em>
-</p>
+([Demo URL](https://drive.google.com/file/d/1jw2kMu5O1KPCcS09yxLnxBjuf5OHvays/view?usp=drive_link))
+
 ---
 
 ## Getting Started
