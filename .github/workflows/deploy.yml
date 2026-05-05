@@ -38,6 +38,13 @@ jobs:
         run: |
           flutter build web --release --base-href "/expense_tracker_app/"
 
+      - name: Verify Build
+        run: |
+          if [ ! -f "build/web/index.html" ]; then
+            echo "Error: index.html not found in build/web. Build failed."
+            exit 1
+          fi
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
