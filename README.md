@@ -100,9 +100,9 @@ Check out the full walkthrough of the Sovereign Ledger experience:
 
 | Type | Link |
 | :--- | :--- |
-| **Live URL** | [Live Url](https://your-live-url.com) |
+| **Live URL** | [Live Url]([https://your-live-url.com](https://mujahidamin1.github.io/expense_tracker_app/)) |
 | **Appetize.io** | [https://appetize.io/app/b_rsgfo6c4wrjhatlrjxtmbfj27i]|
-| **Cloud Drive** | [Download APK/Assets](https://your-cloud-drive-link.com) |
+| **Cloud Drive** | [Download EXE/Assets](https://drive.google.com/file/d/1AdCkE3Uy0nJvJT8PtRFiCyrFQdsu2n0e/view?usp=drive_link)) |
 
 ---
 
