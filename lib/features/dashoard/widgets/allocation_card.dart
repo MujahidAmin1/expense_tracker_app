@@ -9,11 +9,13 @@ class AllocationCard extends StatelessWidget {
     required this.category,
     required this.limit,
     required this.spent,
+    required this.onTap,
   });
 
   final CategoryType category;
   final double limit;
   final double spent;
+  final VoidCallback onTap;
 
   IconData get _icon => switch (category) {
         CategoryType.food => Icons.restaurant,
@@ -38,80 +40,90 @@ class AllocationCard extends StatelessWidget {
     final remaining = (limit - spent).clamp(0.0, limit);
     final progress = limit > 0 ? (spent / limit).clamp(0.0, 1.0) : 0.0;
 
-    return Container(
-      width: 140,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.white,
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
         borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: AppColors.backgroundGrey,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              _icon,
-              size: 20,
-              color: AppColors.primaryBlue,
-            ),
+        hoverColor: AppColors.primaryBlue.withValues(alpha: 0.12),
+        onTap: onTap,
+        child: Container(
+          width: 140,
+          height: 170,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(16),
           ),
-          const SizedBox(height: 12),
-          Text(
-            category.name[0].toUpperCase() + category.name.substring(1),
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: AppColors.darkText,
-            ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            AppFormatter.currency(spent, decimalDigits: 0),
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w800,
-              color: AppColors.primaryBlue,
-            ),
-          ),
-          const Spacer(),
-          Stack(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 4,
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: AppColors.inactiveBackground,
-                  borderRadius: BorderRadius.circular(2),
+                  color: AppColors.backgroundGrey,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  _icon,
+                  size: 20,
+                  color: AppColors.primaryBlue,
                 ),
               ),
-              FractionallySizedBox(
-                widthFactor: progress,
-                child: Container(
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: _progressColor,
-                    borderRadius: BorderRadius.circular(2),
+              const SizedBox(height: 12),
+              Text(
+                category.name[0].toUpperCase() + category.name.substring(1),
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.darkText,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                AppFormatter.currency(spent, decimalDigits: 0),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w800,
+                  color: AppColors.primaryBlue,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Stack(
+                children: [
+                  Container(
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: AppColors.inactiveBackground,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
                   ),
+                  FractionallySizedBox(
+                    widthFactor: progress,
+                    child: Container(
+                      height: 4,
+                      decoration: BoxDecoration(
+                        color: _progressColor,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 6),
+              Text(
+                '${AppFormatter.currency(remaining, decimalDigits: 0)} LEFT',
+                style: TextStyle(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w800,
+                  color: remaining > 0 ? AppColors.textGrey : const Color(0xFFE53935),
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 6),
-          Text(
-            '${AppFormatter.currency(remaining, decimalDigits: 0)} LEFT',
-            style: TextStyle(
-              fontSize: 10,
-              fontWeight: FontWeight.w800,
-              color: remaining > 0 ? AppColors.textGrey : const Color(0xFFE53935),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

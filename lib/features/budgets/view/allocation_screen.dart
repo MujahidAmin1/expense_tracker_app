@@ -91,8 +91,11 @@ class _AllocationScreenState extends ConsumerState<AllocationScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: [
+      body: Center(
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: Column(
+            children: [
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -334,9 +337,10 @@ class _AllocationScreenState extends ConsumerState<AllocationScreen> {
                 ),
               ),
             ),
-          ),
-        ],
+              ),
+            
+        ],),
       ),
-    );
+    ));
   }
 }

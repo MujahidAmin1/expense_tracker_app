@@ -1,16 +1,72 @@
+import 'dart:io';
+import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:expense_tracker_app/utils/app_colors.dart';
+import 'package:expense_tracker_app/features/insights/view/controller/insight_controller.dart';
 import '../widgets/settings_tile.dart';
 import '../widgets/settings_toggle_tile.dart';
 import '../widgets/settings_section_header.dart';
 import '../widgets/user_profile_card.dart';
 import '../widgets/ledger_cards_row.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
+  Future<void> _exportCsv(BuildContext context, WidgetRef ref) async {
+  try {
+    final state = ref.read(insightControllerProvider);
+    
+    List<List<dynamic>> rows = [];
+    // Add header row
+    rows.add(["Category", "Total Spent"]);
+    
+    // Add category spending data
+    state.categorySpending.forEach((category, amount) {
+      final categoryName = category.toString().split('.').last.toUpperCase();
+      rows.add([categoryName, amount.toStringAsFixed(2)]);
+    });
+    
+    // Add an empty row and summary data
+    rows.add([]);
+    rows.add(["Total Budget", state.totalBudget.toStringAsFixed(2)]);
+    rows.add(["Total Spent", state.totalSpent.toStringAsFixed(2)]);
+    rows.add(["Remaining", state.totalRemaining.toStringAsFixed(2)]);
+
+    // Encode the list of rows into a CSV string
+    String csvData = Csv().encode(rows);
+    
+    // Get the directory to save the file
+    final directory = await getApplicationDocumentsDirectory();
+    final path = '${directory.path}/insights_export_${DateTime.now().millisecondsSinceEpoch}.csv';
+    final file = File(path);
+    await file.writeAsString(csvData);
+    
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Exported to $path'),
+          backgroundColor: AppColors.primaryBlue,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
+  } catch (e) {
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed to export CSV'),
+          backgroundColor: Color(0xFFE53935),
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
+  }
+}
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       backgroundColor: AppColors.backgroundGrey,
       body: SafeArea(
@@ -102,7 +158,15 @@ class SettingsScreen extends StatelessWidget {
               ),
 
               const SizedBox(height: 24),
+              SettingsTile(
+                icon: Icons.lock_outline,
+                iconColor: AppColors.primaryBlue,
+                title: 'Export Data',
+                subtitle: 'Export data in csv format',
+                onTap: () => _exportCsv(context, ref),
+              ),
 
+              const SizedBox(height: 24),
               // Preferences Section
               const SettingsSectionHeader(title: 'PREFERENCES'),
               const SizedBox(height: 8),
@@ -129,7 +193,16 @@ class SettingsScreen extends StatelessWidget {
                 subtitle: 'FAQs and direct support',
                 onTap: () {},
               ),
-
+              const SizedBox(height: 24),
+              const SettingsSectionHeader(title: 'DATA MANAGEMENT'),
+              const SizedBox(height: 8),
+              SettingsTile(
+                icon: Icons.download_rounded,
+                iconColor: AppColors.primaryBlue,
+                title: 'Export Data',
+                subtitle: 'Download Insights to CSV',
+                onTap: () => _exportCsv(context, ref),
+              ),
               const SizedBox(height: 24),
 
               // Sign Out Button

@@ -41,23 +41,27 @@ class CategoryBudgetTile extends StatelessWidget {
     final remaining = (limit - spent).clamp(0.0, limit);
     final progress = limit > 0 ? (spent / limit).clamp(0.0, 1.0) : 0.0;
 
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => CategoryTransactionsScreen(category: category),
+    return Material(
+      color: AppColors.white,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16),
+        hoverColor: AppColors.primaryBlue.withValues(alpha: 0.12),
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => CategoryTransactionsScreen(category: category),
+            ),
+          );
+        },
+        child: Container(
+          padding: const EdgeInsets.all(18),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: AppColors.categoryBorder),
           ),
-        );
-      },
-      child: Container(
-        padding: const EdgeInsets.all(18),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.categoryBorder),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Icon
             Container(
@@ -66,7 +70,10 @@ class CategoryBudgetTile extends StatelessWidget {
                 color: _iconBackgroundColor,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Icon(icon, size: 24, color: _progressColor),
+              child: Hero(
+                tag: 'cat_icon_${category.name}',
+                child: Icon(icon, size: 24, color: _progressColor),
+              ),
             ),
             const SizedBox(height: 16),
             
@@ -135,6 +142,6 @@ class CategoryBudgetTile extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 }

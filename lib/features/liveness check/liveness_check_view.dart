@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:facial_liveness_verification/facial_liveness_verification.dart';
-import 'package:expense_tracker_app/features/btm_navbar/btm_navbar.dart';
+import 'package:expense_tracker_app/features/navbar/navbar.dart';
 
 class LivenessCheckView extends StatefulWidget {
   const LivenessCheckView({super.key});
@@ -42,7 +42,7 @@ class _LivenessCheckViewState extends State<LivenessCheckView> {
         Future.delayed(const Duration(milliseconds: 1500), () {
           if (mounted) {
             Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (_) => const BtmNavbar()),
+              MaterialPageRoute(builder: (_) => const Navbar()),
             );
           }
         });
@@ -172,7 +172,21 @@ class _LivenessCheckViewState extends State<LivenessCheckView> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 48), // Balance the back button
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (_) => const Navbar()),
+                          );
+                        },
+                        child: const Text(
+                          'Skip',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

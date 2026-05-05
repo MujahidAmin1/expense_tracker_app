@@ -1,31 +1,28 @@
-import 'package:expense_tracker_app/features/btm_navbar/btm_nav_ctrl.dart';
-import 'package:expense_tracker_app/features/budgets/view/budget_view.dart';
-import 'package:expense_tracker_app/features/dashoard/view/dashboard_screen.dart';
-import 'package:expense_tracker_app/features/insights/view/insights_screen.dart';
-import 'package:expense_tracker_app/features/settings/view/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:expense_tracker_app/features/navbar/nav_ctrl.dart';
 
-class BtmNavbar extends ConsumerWidget {
-  const BtmNavbar({super.key});
+class MobileLayout extends ConsumerWidget {
+  const MobileLayout({
+    super.key,
+    required this.currentScreen,
+    required this.screens,
+  });
+
+  final int currentScreen;
+  final List<Widget> screens;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    int currentScreen = ref.watch(currentScreenProvider) ?? 0;
-    List<Widget> screens = [
-      DashboardScreen(),
-      BudgetsView(),
-      InsightsScreen(),
-      SettingsScreen(),
-    ];
     return Scaffold(
-      body: IndexedStack(index: currentScreen, children: screens),
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        child: screens[currentScreen],
+      ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: currentScreen,
-        onDestinationSelected: (value) {
-          navigateTo(ref, value);
-        },
+        onDestinationSelected: (value) => navigateTo(ref, value),
         destinations: [
           NavigationDestination(
             selectedIcon: SvgPicture.asset("assets/svgs/overview_filled.svg"),

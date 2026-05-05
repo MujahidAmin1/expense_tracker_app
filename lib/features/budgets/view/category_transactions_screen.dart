@@ -6,6 +6,7 @@ import 'package:expense_tracker_app/utils/thousands_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:expense_tracker_app/features/transaction/view/transaction_detail_screen.dart';
 
 class CategoryTransactionsScreen extends ConsumerWidget {
   final CategoryType category;
@@ -132,117 +133,130 @@ class _TransactionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.categoryBorder),
-      ),
-      child: Row(
-        children: [
-          // Amount Circle
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: transaction.type == TransactionType.expense
-                  ? categoryColor.withOpacity(0.1)
-                  : const Color(0xFF43A047).withOpacity(0.1),
-              shape: BoxShape.circle,
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => TransactionDetailScreen(transaction: transaction),
             ),
-            child: Center(
-              child: Text(
-                transaction.type == TransactionType.expense ? '-' : '+',
+          );
+        },
+        borderRadius: BorderRadius.circular(16),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: AppColors.categoryBorder),
+          ),
+          child: Row(
+            children: [
+              // Amount Circle
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: transaction.type == TransactionType.expense
+                      ? categoryColor.withOpacity(0.1)
+                      : const Color(0xFF43A047).withOpacity(0.1),
+                  shape: BoxShape.circle,
+                ),
+                child: Center(
+                  child: Text(
+                    transaction.type == TransactionType.expense ? '-' : '+',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                      color: transaction.type == TransactionType.expense
+                          ? categoryColor
+                          : const Color(0xFF43A047),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 14),
+              
+              // Transaction Details
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      transaction.note ?? 'No note',
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.darkText,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        Text(
+                          DateFormat('MMM dd, yyyy').format(transaction.date),
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: AppColors.textGrey,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        if (transaction.isRecurring) ...[
+                          const SizedBox(width: 8),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 2,
+                            ),
+                            decoration: BoxDecoration(
+                              color: AppColors.primaryBlue.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.sync,
+                                  size: 10,
+                                  color: AppColors.primaryBlue,
+                                ),
+                                const SizedBox(width: 3),
+                                Text(
+                                  transaction.recurrence?.name.toUpperCase() ?? '',
+                                  style: const TextStyle(
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColors.primaryBlue,
+                                    letterSpacing: 0.5,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              
+              // Amount
+              Text(
+                '${transaction.type == TransactionType.expense ? '-' : '+'}${AppFormatter.currency(transaction.amount, decimalDigits: 0)}',
                 style: TextStyle(
-                  fontSize: 24,
+                  fontSize: 18,
                   fontWeight: FontWeight.w700,
                   color: transaction.type == TransactionType.expense
                       ? categoryColor
                       : const Color(0xFF43A047),
                 ),
               ),
-            ),
+            ],
           ),
-          const SizedBox(width: 14),
-          
-          // Transaction Details
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  transaction.note ?? 'No note',
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.darkText,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 4),
-                Row(
-                  children: [
-                    Text(
-                      DateFormat('MMM dd, yyyy').format(transaction.date),
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: AppColors.textGrey,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    if (transaction.isRecurring) ...[
-                      const SizedBox(width: 8),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 6,
-                          vertical: 2,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.primaryBlue.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.sync,
-                              size: 10,
-                              color: AppColors.primaryBlue,
-                            ),
-                            const SizedBox(width: 3),
-                            Text(
-                              transaction.recurrence?.name.toUpperCase() ?? '',
-                              style: const TextStyle(
-                                fontSize: 9,
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.primaryBlue,
-                                letterSpacing: 0.5,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-              ],
-            ),
-          ),
-          
-          // Amount
-          Text(
-            '${transaction.type == TransactionType.expense ? '-' : '+'}${AppFormatter.currency(transaction.amount, decimalDigits: 0)}',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: transaction.type == TransactionType.expense
-                  ? categoryColor
-                  : const Color(0xFF43A047),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

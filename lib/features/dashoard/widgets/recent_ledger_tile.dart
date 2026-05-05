@@ -4,6 +4,7 @@ import 'package:expense_tracker_app/utils/app_colors.dart';
 import 'package:expense_tracker_app/utils/thousands_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:expense_tracker_app/features/transaction/view/transaction_detail_screen.dart';
 
 class RecentLedgerTile extends StatelessWidget {
   const RecentLedgerTile({
@@ -30,23 +31,40 @@ class RecentLedgerTile extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Row(
-        children: [
-          Container(
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(16),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          hoverColor: AppColors.primaryBlue.withValues(alpha: 0.1),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => TransactionDetailScreen(transaction: transaction),
+              ),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: AppColors.backgroundGrey,
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(
-              _icon,
-              size: 24,
-              color: AppColors.primaryBlue,
+            child: Hero(
+              tag: 'tx_icon_${transaction.id}',
+              child: Icon(
+                _icon,
+                size: 24,
+                color: AppColors.primaryBlue,
+              ),
             ),
           ),
           const SizedBox(width: 16),
@@ -104,7 +122,10 @@ class RecentLedgerTile extends StatelessWidget {
               ),
             ],
           ),
-        ],
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
