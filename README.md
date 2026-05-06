@@ -65,7 +65,7 @@ Check out the full walkthrough of the Sovereign Ledger experience:
 ## Getting Started
 
 ### Prerequisites
-- Flutter SDK (v3.22.0 or higher)
+- Flutter SDK (v3.11.4 or higher)
 - Dart SDK (v3.4.0 or higher)
 
 ### Setup
